@@ -17,42 +17,66 @@ public class Gun : MonoBehaviour
     private int _TotalBulletsNumber = 0;
     private int _currentBulletsNumber = 0;
     private Text _bulletsText;
+    private GetWeapon _getWeapon;
 
 
     public void Shoot()
     {
+        if (_currentBulletsNumber == 0)
+        {
+            if(_TotalBulletsNumber == 0)
+            {
+               RemoveWeapon();
+            }
+            return;
+
+        }
         _weaponAnimator.Play("Shoot",-1,0f);
         GameObject.Instantiate(_bullet, _bulletPivot.position, _bulletPivot.rotation);
         _currentBulletsNumber--;
         UpdateBulletsTexts();
     }
-    public void PickUpWeapon()
+    public void PickUpWeapon(GetWeapon getWeapon)
     {
         _TotalBulletsNumber = _maxBulletNumber;
-
+        _getWeapon = getWeapon;
         Reload();
         _weaponAnimator.Play("GetWeapon");
         UpdateBulletsTexts();
     }
     public void Reload()
     {
-        if (_TotalBulletsNumber > _cartridgeBulletsNumber)
+
+        if (_currentBulletsNumber == _cartridgeBulletsNumber || _TotalBulletsNumber == 0)
         {
-            _currentBulletsNumber = _cartridgeBulletsNumber;
-        } else if(_TotalBulletsNumber > 0)
+            return;
+        } 
+        int bulletsNeed = _cartridgeBulletsNumber - _currentBulletsNumber;
+        if (_TotalBulletsNumber >= _cartridgeBulletsNumber)
+        {
+            _currentBulletsNumber = bulletsNeed;
+        }else if(_TotalBulletsNumber > 0)
         {
             _currentBulletsNumber = _TotalBulletsNumber;
+
         }
         _TotalBulletsNumber -= _currentBulletsNumber;
         UpdateBulletsTexts();
+        _weaponAnimator.Play("Reload",-1,0f);
     
     }
     private void UpdateBulletsTexts()
     {
         if(_bulletsText == null)
         {
-            _bulletsText = GameObject.Find("BulletsText").GetComponent<Text>();
+            _bulletsText = _getWeapon.GetComponent<UIController>().BulletsText;
         }
         _bulletsText.text = _currentBulletsNumber + "/" + _TotalBulletsNumber;
+    }
+
+    private void RemoveWeapon()
+    {
+        _getWeapon.RemoveWeapon();
+        _getWeapon = null;
     }
 }
