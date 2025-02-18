@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpeed: 80
-  damage: 1
+  damage: 3
 --- !u!1001 &8466048822450635000
 PrefabInstance:
   m_ObjectHideFlags: 0
