@@ -6,6 +6,8 @@ public class PLayer : MonoBehaviour
     private UIController uiController;
     private bool isPlaying = true;
 
+    private GameObject _key;
+
     private void Start()
     {
         health=GetComponent<Health>();
@@ -19,17 +21,23 @@ public class PLayer : MonoBehaviour
             Vector3 pushDirection = (transform.position - collision.transform.position).normalized;
             transform.position += pushDirection * 0.5f;
         }
-        else if (collision.gameObject.CompareTag("Key"))
-        {
-            uiController.ShowGameWinUI(true);
-        }
+       
     }
     public void Die()
     {
        uiController.ShowGameOverUI(true);
     }
-    public void Win()
+    void OnTriggerEnter(Collider other)
     {
-        uiController.ShowWinUI(true);
+        if(other.CompareTag("Key")&& _key == null)
+        {
+            GrabKey(other.transform);
+        }
+    }
+    private void GrabKey(Transform key)
+    {
+        _key = key.gameObject;
+        gameObject.GetComponent<UIController>().ShowWinUI(true);
+        Destroy(_key);
     }
 }

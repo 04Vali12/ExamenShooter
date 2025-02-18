@@ -13,6 +13,12 @@ public class Enemy : MonoBehaviour
 
    private Health health;
 
+    private Animator animator;
+
+    [SerializeField]
+    private int damageAmount = 1;
+
+
    private void Start()
    {
     objetive = GameObject.FindGameObjectWithTag(enemyToLook).transform;
@@ -26,8 +32,18 @@ public class Enemy : MonoBehaviour
    }
    private void FollowObjetive()
    {
-    Vector3 direction = (objetive.position-transform.position).normalized;
-    transform.position += direction * speed * Time.deltaTime;
+    Vector3 direction = (objetive.position - transform.position).normalized;
+        if (direction.magnitude > 0.1f) // Check if the enemy is moving
+        {
+            transform.position += direction * speed * Time.deltaTime;
+            //animator.SetBool("isWalking", true); // Trigger walking animation
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * speed);
+        }
+        else
+        {
+            //animator.SetBool("isWalking", false); // Stop walking animation
+        }
    }
     private void OnCollisionEnter(Collision collision)
     {
@@ -37,10 +53,18 @@ public class Enemy : MonoBehaviour
          Destroy(collision.gameObject);
 
         }
+         if (collision.gameObject.CompareTag("Player"))
+        {
+            Health playerHealth = collision.gameObject.GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damageAmount);
+            }
+        }
     }
     public void Die()
     {
       Destroy(gameObject);
     }
-
+     
 }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2e41ff3514aaf0f418f24f19d36241ab
+timeCreated: 1426243569
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 26689
+  packageName: 'Handgun '
+  packageVersion: 1.0
+  assetPath: Assets/Pistol/Materials/Dif5.mat
+  uploadId: 54625
