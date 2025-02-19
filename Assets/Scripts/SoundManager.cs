@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource musicS;
     public AudioMixer masterMixer;
     Dictionary<string,AudioClip> audioDictionary;
+    
     void Awake()
     {
         if(instance == null){

@@ -12,6 +12,7 @@ public class PLayer : MonoBehaviour
     {
         health=GetComponent<Health>();
         uiController = GetComponent<UIController>();
+        SoundManager.instance.Play("BackGroundM");
     }
     private void OllisionEnter(Collision collision)
     {
