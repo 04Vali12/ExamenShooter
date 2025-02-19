@@ -35,8 +35,6 @@ public class GetWeapon : MonoBehaviour
         _weapon = weapon.GetComponent<Gun>();
         _weapon.PickUpWeapon(this);
         gameObject.GetComponent<UIController>().ShowBulletsUI(true);
-        
-        
     }
     public void RemoveWeapon()
     {

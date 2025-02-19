@@ -8,8 +8,9 @@ public class UIController : MonoBehaviour
 
     [SerializeField]
     private Text _bulletsText;
-
-    public Text BulletsText
+    [SerializeField]
+    
+       public Text BulletsText
     {
         get{return _bulletsText;}
     }
@@ -17,11 +18,14 @@ public class UIController : MonoBehaviour
     private GameObject _gameOverUI;
     [SerializeField]
     private GameObject _gameWinUI;
+
+    private GameObject _crosshair;
     private void Start()
     {
         ShowBulletsUI(false);
         ShowGameOverUI(false);
         ShowWinUI(false);
+        //ShowCrosshairUI(false);
     }
 
 
